@@ -11,10 +11,13 @@ const renderMessages = (data) => {
 
 const handleSubmit = (evt) => {
   evt.preventDefault();
-  const message = document.getElementById("message");
-  ws.send(message.value);
+  let m = document.getElementById("message");
+  let a = document.getElementById("autor");
+  ws.send(
+    JSON.stringify({autor: a.value,message: m.value})
+  )
   
-  message.value = "";
+  m.value = "";
 };
 
 const form = document.getElementById("form");

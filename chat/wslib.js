@@ -12,12 +12,13 @@ const wsConnection = (server) => {
     clients.push(ws);
     sendMessages();
 
-    ws.on("message", (message) => {
-      messages.push(message);
+    ws.on("message", (m) => {
+      m =  JSON.parse(m)
+      messages.push(m.message);
       mongo.getDatabase(db => {
         mongo.insertDocuments(db, data => {
           
-        }, {mes:message,ts:3})
+        }, {autor:m.autor,message:m.message,ts:new Date().getTime()})
       });
       
       sendMessages();
