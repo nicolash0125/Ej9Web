@@ -3,6 +3,8 @@ const WebSocket = require("ws");
 const clients = [];
 const messages = [];
 
+var mongo = require("./controller/mongo");
+
 const wsConnection = (server) => {
   const wss = new WebSocket.Server({ server });
 
@@ -12,6 +14,12 @@ const wsConnection = (server) => {
 
     ws.on("message", (message) => {
       messages.push(message);
+      mongo.getDatabase(db => {
+        mongo.insertDocuments(db, data => {
+          
+        }, {mes:message,ts:3})
+      });
+      
       sendMessages();
     });
   });

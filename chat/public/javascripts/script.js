@@ -13,6 +13,7 @@ const handleSubmit = (evt) => {
   evt.preventDefault();
   const message = document.getElementById("message");
   ws.send(message.value);
+  
   message.value = "";
 };
 
